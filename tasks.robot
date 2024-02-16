@@ -5,14 +5,15 @@ Documentation       Order testing and guides from Prove Expertise Oy
 ...                 Get in touch with data from excel
 ...                 Register to security webinar
 ...                 Buy storytools of testing
-...                 Take screenshot of shopping cart
-...                 Embed screenshot of the order to pdf receipt
-...                 Create ZIP archive of the receipts and images
+...                 Take screenshot of pentesting image
+...                 Embed screenshot of the pentesting to pdf
+...                 Create ZIP archive of the pdfs and images
 
 Library             RPA.Browser.Selenium
 Library             RPA.PDF
 Library             RPA.Archive
 Library             RPA.Excel.Files
+Library             RPA.HTTP
 Resource            resources/variables.resource
 
 Suite Teardown      Close All Browsers
@@ -20,6 +21,7 @@ Suite Teardown      Close All Browsers
 
 *** Tasks ***
 Order tests from Prove Expertise Oy
+    Download Excel file
     Open the test order website
     Accept cookies
     Select currency
@@ -31,8 +33,11 @@ Order tests from Prove Expertise Oy
 
 
 *** Keywords ***
+Download Excel file
+    Download    https://robotsparebinindustries.com/SalesData.xlsx    overwrite=True
+
 Open the test order website
-    Open Browser    ${URL}    ${browser}
+    Open Chrome Browser    ${URL}
 
 Accept cookies
     Click Button    ${accept_cookies}
@@ -46,8 +51,11 @@ Get in touch
     Click Element    ${get_in_touch}
 
     ${sales_reps}=    Read Worksheet As Table    header=True
-    FOR    ${sales_rep}    IN    @{sales_reps}
+    
+    FOR     ${sales_rep}    IN    @{sales_reps}
         Fill the form for one person    ${sales_rep}
+        ${i}=    Evaluate    ${i} + 1
+        IF    ${i}==5    BREAK
     END
     Close Workbook
 
@@ -55,7 +63,7 @@ Fill the form for one person
     [Arguments]    ${sales_rep}
 
     Wait Until Element Is Visible    ${frame}
-    Select Frame    ${frame}
+    Select Frame                     ${frame}
 
     Input Text When Element Is Visible    ${name}                    ${sales_rep}[First Name]
     Input Text        ${name}             ${sales_rep}[Last Name]

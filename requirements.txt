@@ -1,0 +1,3 @@
+robotframework
+rpaframework==28.2.0
+robocorp-truststore==0.8.0
