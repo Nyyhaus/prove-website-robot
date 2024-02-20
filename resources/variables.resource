@@ -1,10 +1,12 @@
+TODO: global variables with uppercase!
+
 *** Variables ***
 # this is a counter for function that loops through the excel data
 # set this to determine how many rows of excel data you want to use
 ${i}    0
 
 # browser settings
-${URL}		https://www.prove.fi/
+${URL}		https://www.prove.fi/    
 ${browser}    chrome
 
 # get in touch attributes

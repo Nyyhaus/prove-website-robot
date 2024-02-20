@@ -10,8 +10,6 @@ RUN apt-get update && apt-get upgrade -y && \
     apt update && \
     apt install python3.10 python3-pip wget -y
 
-# RUN apt install libxkbcommon0 libxrandr2 xdg-utils fonts-liberation -y
-
 # Install Python dependencies
 RUN pip install pip==23.2.1 \
                 robotframework \
@@ -23,15 +21,10 @@ RUN pip install pip==23.2.1 \
 RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
     apt install ./google-chrome-stable_current_amd64.deb -y
 
-# Other platforms (CentOS, Fedora, etc.) might require different package names and installation methods.
-
 # Set environment variables (optional)
 ENV CHROME_DRIVER=/usr/local/bin/chromedriver
 
-# Copy your Robocorp code
-# COPY . .
-
-RUN python3 --version
+#TODO: install gecko driver for firefox
 
 # Run your Robot Framework tests
 CMD ["robot", "--suite", "tasks.robot"]

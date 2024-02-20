@@ -3,8 +3,8 @@ Documentation       Order testing and guides from Prove Expertise Oy
 ...                 Change currency
 ...                 Download excel file
 ...                 Get in touch with data from excel
-...                 Register to security webinar
 ...                 Buy storytools of testing
+...                 Go to pentesting and export description to pdf
 ...                 Take screenshot of pentesting image
 ...                 Embed screenshot of the pentesting to pdf
 ...                 Create ZIP archive of the pdfs and images
@@ -29,7 +29,6 @@ Order tests from Prove Expertise Oy
     Export pentesting description as a PDF
     Buy a testing guide
     Create a ZIP file of pentesting files
-    # Enter billing information
 
 
 *** Keywords ***
@@ -37,7 +36,7 @@ Download Excel file
     Download    https://robotsparebinindustries.com/SalesData.xlsx    overwrite=True
 
 Open the test order website
-    Open Chrome Browser    ${URL}
+    Open Chrome Browser    ${URL}    maximized=True
 
 Accept cookies
     Click Button    ${accept_cookies}
@@ -101,6 +100,27 @@ Export pentesting description as a PDF
 
 Create a ZIP file of pentesting files
     Archive Folder With Zip    ${OUTPUT_DIR}${/}pentesting-info${/}    pentesting-info.zip
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Enter billing information
 #    Click Element When Clickable    //*[@id="basic"]/div/div[2]/label
