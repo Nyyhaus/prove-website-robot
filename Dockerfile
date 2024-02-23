@@ -4,7 +4,7 @@
 FROM ubuntu:latest
 
 # copy robot files to container
-COPY . /my-project
+COPY . /tests
 
 # Set python 3.10
 RUN apt-get update && apt-get upgrade -y && \
@@ -14,7 +14,7 @@ RUN apt-get update && apt-get upgrade -y && \
     apt install python3.10 python3-pip wget -y
 
 # Install Python dependencies
-RUN pip install --no-cache-dir -r my-project/requirements.txt
+RUN pip install --no-cache-dir -r tests/requirements.txt
 
 # Install Chrome (adjust based on your platform)
 # Debian/Ubuntu
