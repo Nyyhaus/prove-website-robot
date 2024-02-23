@@ -1,9 +1,9 @@
+# Using Ubuntu instead of Fedora, because it is easier 
+# to change to different version of python
+# use of the libraries in the tests requires python 3.10
 FROM ubuntu:latest
 
-RUN mkdir -p /opt/robotframework
-
-WORKDIR /opt/robotframework
-
+# Set python 3.10
 RUN apt-get update && apt-get upgrade -y && \
     apt install software-properties-common -y && \
     add-apt-repository ppa:deadsnakes/ppa && \
@@ -21,13 +21,13 @@ RUN pip install pip==23.2.1 \
 RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
     apt install ./google-chrome-stable_current_amd64.deb -y
 
-# Set environment variables (optional)
-ENV CHROME_DRIVER=/usr/local/bin/chromedriver
+# # Set environment variables (optional)
+# ENV CHROME_DRIVER=/usr/local/bin/chromedriver
 
-#TODO: install gecko driver for firefox
+COPY . /my-project
 
 # Run your Robot Framework tests
-CMD ["robot", "--suite", "tasks.robot"]
+# CMD ["robot", "--suite", "tasks.robot"]
 
 
 
