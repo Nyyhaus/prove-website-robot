@@ -1,17 +1,20 @@
 # Using Ubuntu instead of Fedora, because it is easier 
 # to change to different version of python
 # use of the libraries in the tests requires python 3.10
-FROM ubuntu:latest
+# FROM ubuntu:latest
+FROM python:3.10-slim-buster
 
 # copy robot files to container
 COPY . /tests
 
-# Set python 3.10
-RUN apt-get update && apt-get upgrade -y && \
-    apt install software-properties-common -y && \
-    add-apt-repository ppa:deadsnakes/ppa && \
-    apt update && \
-    apt install python3.10 python3-pip wget -y
+# Set python 3.10 if using ubuntu
+# RUN apt-get update && apt-get upgrade -y && \
+#     apt install software-properties-common -y && \
+#     add-apt-repository ppa:deadsnakes/ppa && \
+#     apt update && \
+#     apt install python3.10 python3-pip wget -y
+
+RUN apt update && apt upgrade -y && apt install wget -y
 
 # Install Python dependencies
 RUN pip install --no-cache-dir -r tests/requirements.txt
