@@ -5,21 +5,18 @@
 FROM python:3.10-slim-buster
 
 # copy robot files to container
-COPY . /tests
-
-# Set python 3.10 if using ubuntu
-# RUN apt-get update && apt-get upgrade -y && \
-#     apt install software-properties-common -y && \
-#     add-apt-repository ppa:deadsnakes/ppa && \
-#     apt update && \
-#     apt install python3.10 python3-pip wget -y
-
-RUN apt update && apt upgrade -y && apt install wget -y
+COPY tests /tests
+WORKDIR tests
 
 # Install Python dependencies
-RUN pip install --no-cache-dir -r tests/requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Update, install wget and firefox-esr, because regular firefox cannot be installed straightforward
+RUN apt update && apt upgrade -y && apt install wget firefox-esr -y
 
 # Install Chrome (adjust based on your platform)
 # Debian/Ubuntu
 RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
     apt install ./google-chrome-stable_current_amd64.deb -y
+
+RUN apt remove wget python3-pip -y

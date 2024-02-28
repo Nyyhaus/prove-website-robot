@@ -36,7 +36,8 @@ Download Excel file
     Download    https://robotsparebinindustries.com/SalesData.xlsx    overwrite=True
 
 Open the test order website
-    Open Chrome Browser    ${URL}    maximized=True
+    Open Browser    ${URL}    browser=headlessfirefox
+    # Open Chrome Browser    ${URL}    maximized=True
 
 Accept cookies
     Click Button    ${accept_cookies}

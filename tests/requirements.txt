@@ -1,4 +1,4 @@
 pip==23.2.1
 robotframework
-rpaframework==28.2.0
+rpaframework
 robocorp-truststore==0.8.0
