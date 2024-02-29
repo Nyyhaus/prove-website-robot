@@ -33,7 +33,7 @@ Order tests with Chrome from Prove Expertise Oy
     Export pentesting description as a PDF
     Buy a testing guide
     Close Chrome browser
-    
+
 Order tests with Firefox from Prove Expertise Oy
     Open the Prove website with Firefox
     Accept cookies
@@ -52,7 +52,7 @@ Open the Prove website with Chrome
 
 Open the Prove website with Firefox
     # Open Browser    ${URL}    browser=headlessfirefox
-    Open Browser    ${URL}    browser=firefox 
+    Open Browser    ${URL}    browser=firefox
 
 Close Chrome browser
     Close Browser
@@ -61,7 +61,7 @@ Accept cookies
     Click Button When Visible    ${accept_cookies}
 
 Verify that currency is in Euros
-    Click Button     ${currency_dropdown}
+    Click Button    ${currency_dropdown}
     Click Element    ${currency}
 
 Get in touch
@@ -69,8 +69,8 @@ Get in touch
     Click Element    ${get_in_touch}
 
     ${sales_reps}=    Read Worksheet As Table    header=True
-    
-    FOR     ${sales_rep}    IN    @{sales_reps}
+
+    FOR    ${sales_rep}    IN    @{sales_reps}
         Fill the form for one person    ${sales_rep}
         ${i}=    Evaluate    ${i} + 1
         IF    ${i}==5    BREAK
@@ -79,29 +79,29 @@ Get in touch
 
 Fill the form for one person
     [Arguments]    ${sales_rep}
-    
+
     ${secret}=    Get Secret    credentials
 
     Wait Until Element Is Visible    ${frame}
-    Select Frame                     ${frame}
+    Select Frame    ${frame}
 
-    Input Text When Element Is Visible    ${name}                    
+    Input Text When Element Is Visible    ${name}
     ...    ${sales_rep}[First Name] ${sales_rep}[Last Name]
-             
-    Input Text        ${email}            ${secret}[email]
-    Input Text        ${phone}            ${sales_rep}[Sales]
-    Input Text        ${company}          ${secret}[company]
-    Input Text        ${message_field}    ${secret}[message]
-    Click Element     ${real_person}
+
+    Input Text    ${email}    ${secret}[email]
+    Input Text    ${phone}    ${sales_rep}[Sales]
+    Input Text    ${company}    ${secret}[company]
+    Input Text    ${message_field}    ${secret}[message]
+    Click Element    ${real_person}
 
     Unselect Frame
     Reload Page
 
 Buy a testing guide
-    Click Element When Clickable      ${guides}
-    Click Element When Clickable      ${storytools}
-    Click Button When Visible         ${submit}
-    Click Element When Visible        ${remove}
+    Click Element When Clickable    ${guides}
+    Click Element When Clickable    ${storytools}
+    Click Button When Visible    ${submit}
+    Click Element When Visible    ${remove}
 
 Export pentesting description as a PDF
     Click Element When Clickable    ${testing_services}
@@ -122,27 +122,6 @@ Export pentesting description as a PDF
 
 Create a ZIP file of pentesting files
     Archive Folder With Zip    ${OUTPUT_DIR}${/}pentesting-info${/}    pentesting-info.zip
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 # Enter billing information
 #    Click Element When Clickable    //*[@id="basic"]/div/div[2]/label
