@@ -5,10 +5,10 @@ Documentation       Order testing and guides from Prove Expertise Oy
 ...                 Accept cookies
 ...                 Change currency
 ...                 Get in touch with data from excel and vault file
-...                 Buy Storytools of Testing
 ...                 Go to pentesting and export description to pdf
 ...                 Take screenshot of pentesting image
 ...                 Embed screenshot of the pentesting to pdf
+...                 Buy Storytools of Testing
 ...                 Do the same with Firefox
 ...                 Create ZIP archive of the pdfs and images
 
