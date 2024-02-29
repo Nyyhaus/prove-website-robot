@@ -20,3 +20,4 @@ RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.d
     apt install ./google-chrome-stable_current_amd64.deb -y
 
 RUN apt remove wget python3-pip -y
+RUN rm google-chrome-stable_current_amd64.deb

@@ -1,12 +1,15 @@
 *** Settings ***
 Documentation       Order testing and guides from Prove Expertise Oy
-...                 Change currency
 ...                 Download excel file
-...                 Get in touch with data from excel
-...                 Buy storytools of testing
+...                 Go to Prove website with Chrome
+...                 Accept cookies
+...                 Change currency
+...                 Get in touch with data from excel and vault file
+...                 Buy Storytools of Testing
 ...                 Go to pentesting and export description to pdf
 ...                 Take screenshot of pentesting image
 ...                 Embed screenshot of the pentesting to pdf
+...                 Do the same with Firefox
 ...                 Create ZIP archive of the pdfs and images
 
 Library             RPA.Browser.Selenium
@@ -14,35 +17,50 @@ Library             RPA.PDF
 Library             RPA.Archive
 Library             RPA.Excel.Files
 Library             RPA.HTTP
+Library             RPA.Robocorp.Vault
 Resource            resources/variables.resource
 
 Suite Teardown      Close All Browsers
 
 
 *** Tasks ***
-Order tests from Prove Expertise Oy
+Order tests with Chrome from Prove Expertise Oy
     Download Excel file
-    Open the test order website
+    Open the Prove website with Chrome
     Accept cookies
-    Select currency
+    Verify that currency is in Euros
+    Get in touch
+    Export pentesting description as a PDF
+    Buy a testing guide
+    Close Chrome browser
+    
+Order tests with Firefox from Prove Expertise Oy
+    Open the Prove website with Firefox
+    Accept cookies
+    Verify that currency is in Euros
     Get in touch
     Export pentesting description as a PDF
     Buy a testing guide
     Create a ZIP file of pentesting files
 
-
 *** Keywords ***
 Download Excel file
     Download    https://robotsparebinindustries.com/SalesData.xlsx    overwrite=True
 
-Open the test order website
-    Open Browser    ${URL}    browser=headlessfirefox
-    # Open Chrome Browser    ${URL}    maximized=True
+Open the Prove website with Chrome
+    Open Chrome Browser    ${URL}    maximized=True
+
+Open the Prove website with Firefox
+    # Open Browser    ${URL}    browser=headlessfirefox
+    Open Browser    ${URL}    browser=firefox 
+
+Close Chrome browser
+    Close Browser
 
 Accept cookies
-    Click Button    ${accept_cookies}
+    Click Button When Visible    ${accept_cookies}
 
-Select currency
+Verify that currency is in Euros
     Click Button     ${currency_dropdown}
     Click Element    ${currency}
 
@@ -61,16 +79,19 @@ Get in touch
 
 Fill the form for one person
     [Arguments]    ${sales_rep}
+    
+    ${secret}=    Get Secret    credentials
 
     Wait Until Element Is Visible    ${frame}
     Select Frame                     ${frame}
 
-    Input Text When Element Is Visible    ${name}                    ${sales_rep}[First Name]
-    Input Text        ${name}             ${sales_rep}[Last Name]
-    Input Text        ${email}            ${email_address}
+    Input Text When Element Is Visible    ${name}                    
+    ...    ${sales_rep}[First Name] ${sales_rep}[Last Name]
+             
+    Input Text        ${email}            ${secret}[email]
     Input Text        ${phone}            ${sales_rep}[Sales]
-    Input Text        ${company}          ${company_name}
-    Input Text        ${message_field}    ${message}
+    Input Text        ${company}          ${secret}[company]
+    Input Text        ${message_field}    ${secret}[message]
     Click Element     ${real_person}
 
     Unselect Frame

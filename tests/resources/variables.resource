@@ -9,10 +9,11 @@ ${i}    0
 ${URL}		https://www.prove.fi/    
 ${browser}    chrome
 
-# get in touch attributes
-${email_address}    text@gmail.com
-${message}           Hei Prove!     
-${company_name}    My Company
+# get in touch values in vault file, uncomment these if not using vault 
+# and add them to code replacing the vault variables
+# ${email_address}    text@gmail.com
+# ${message}           Hei Prove!     
+# ${company_name}    
 
 # files containing data for robot to use
 ${excel_file}    SalesData.xlsx
