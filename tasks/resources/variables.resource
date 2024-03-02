@@ -11,9 +11,9 @@ ${browser}    chrome
 
 # get in touch values in vault file, uncomment these if not using vault 
 # and add them to code replacing the vault variables
-# ${email_address}    text@gmail.com
-# ${message}           Hei Prove!     
-# ${company_name}    
+${email_address}    text@gmail.com
+${message}           Hi Prove!     
+${company_name}      My Company Oy
 
 # files containing data for robot to use
 ${excel_file}    SalesData.xlsx

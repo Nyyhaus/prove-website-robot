@@ -17,7 +17,7 @@ Library             RPA.PDF
 Library             RPA.Archive
 Library             RPA.Excel.Files
 Library             RPA.HTTP
-Library             RPA.Robocorp.Vault
+# Library             RPA.Robocorp.Vault
 Resource            resources/variables.resource
 
 Suite Teardown      Close All Browsers
@@ -50,13 +50,6 @@ Download Excel file
 Open the Prove website with Chrome
     Open Chrome Browser    ${URL}    maximized=True
 
-Open the Prove website with Firefox
-    # Open Browser    ${URL}    browser=headlessfirefox
-    Open Browser    ${URL}    browser=firefox
-
-Close Chrome browser
-    Close Browser
-
 Accept cookies
     Click Button When Visible    ${accept_cookies}
 
@@ -80,18 +73,26 @@ Get in touch
 Fill the form for one person
     [Arguments]    ${sales_rep}
 
-    ${secret}=    Get Secret    credentials
+    # ${secret}=    Get Secret    credentials
 
     Wait Until Element Is Visible    ${frame}
     Select Frame    ${frame}
 
     Input Text When Element Is Visible    ${name}
     ...    ${sales_rep}[First Name] ${sales_rep}[Last Name]
-
-    Input Text    ${email}    ${secret}[email]
-    Input Text    ${phone}    ${sales_rep}[Sales]
-    Input Text    ${company}    ${secret}[company]
-    Input Text    ${message_field}    ${secret}[message]
+    
+    TRY
+        # Input Text    ${email}    ${secret}[email]
+        Input Text    ${phone}    ${sales_rep}[Sales]
+        # Input Text    ${company}    ${secret}[company]
+        # Input Text    ${message_field}    ${secret}[message]
+    EXCEPT
+        Input Text    ${email}    ${email_address}
+        Input Text    ${phone}    ${sales_rep}[Sales]
+        Input Text    ${company}    ${company_name}
+        Input Text    ${message_field}    ${message}
+    END
+    
     Click Element    ${real_person}
 
     Unselect Frame
@@ -120,8 +121,34 @@ Export pentesting description as a PDF
     Save Pdf    ${OUTPUT_DIR}${/}pentesting-info${/}pentesting-info.pdf
     Close Pdf    ${OUTPUT_DIR}${/}pentesting-info${/}pentesting-info.pdf
 
+Close Chrome browser
+    Close Browser
+
+Open the Prove website with Firefox
+    Open Browser    ${URL}    browser=headlessfirefox
+    # Open Browser    ${URL}    browser=firefox
+
 Create a ZIP file of pentesting files
     Archive Folder With Zip    ${OUTPUT_DIR}${/}pentesting-info${/}    pentesting-info.zip
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Enter billing information
 #    Click Element When Clickable    //*[@id="basic"]/div/div[2]/label
