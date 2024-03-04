@@ -4,15 +4,22 @@ If on windows and using wsl:
 ```
 wsl docker build -t prove-website-robot .
 
-wsl docker run -it --rm -v .:/tests prove-website-robot bash -c "robot --outputdir /output tests/tasks.robot"
+wsl docker run -it --rm -v .:/test-prove-website prove-website-robot-slim_buster bash -c "robot --outputdir output test-prove-website/tasks/tasks.robot"
 ```
 
 On Linux:
 ```
 docker build -t prove-website-robot .
 
-docker run -it --rm -v .:/tests prove-website-robot bash -c "robot --outputdir /output tests/tasks.robot"
+docker run -it --rm -v .:/test-prove-website prove-website-robot-slim_buster bash -c "robot --outputdir output test-prove-website/tasks/tasks.robot""
 ```
+
+rcc:
+```
+rcc run tasks/tasks.robot
+```
+
+In Vscode the robot can be started from the robocorp extension.
 
 # Template: Robot Framework - Minimal
 
