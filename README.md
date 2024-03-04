@@ -4,17 +4,17 @@ If on windows and using wsl:
 ```
 wsl docker build -t prove-website-robot .
 
-wsl docker run -it --rm -v .:/test-prove-website prove-website-robot-slim_buster bash -c "robot --outputdir output test-prove-website/tasks/tasks.robot"
+wsl docker run -it --rm -v .:/test-prove-website prove-website-robot-slim_buster bash -c "robot --outputdir output tasks/tasks.robot"
 ```
 
 On Linux:
 ```
 docker build -t prove-website-robot .
 
-docker run -it --rm -v .:/test-prove-website prove-website-robot-slim_buster bash -c "robot --outputdir output test-prove-website/tasks/tasks.robot""
+docker run -it --rm -v .:/test-prove-website prove-website-robot-slim_buster bash -c "robot --outputdir output tasks/tasks.robot""
 ```
 
-rcc:
+Robocorp rcc:
 ```
 rcc run tasks/tasks.robot
 ```
