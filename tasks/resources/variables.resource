@@ -17,6 +17,7 @@ ${company_name}      My Company Oy
 
 # files containing data for robot to use
 ${excel_file}    SalesData.xlsx
+${download_url}    https://robotsparebinindustries.com/SalesData.xlsx
 
 # cookie banner selectors
 ${accept_cookies}    shopify-pc__banner__btn-accept

@@ -17,7 +17,6 @@ Library             RPA.PDF
 Library             RPA.Archive
 Library             RPA.Excel.Files
 Library             RPA.HTTP
-# Library             RPA.Robocorp.Vault
 Resource            resources/variables.resource
 
 Suite Teardown      Close All Browsers
@@ -45,19 +44,25 @@ Order tests with Firefox from Prove Expertise Oy
 
 *** Keywords ***
 Download Excel file
-    Download    https://robotsparebinindustries.com/SalesData.xlsx    overwrite=True
+    # Downloads excel file overwriting the old one
+    Download    ${download_url}    overwrite=True
 
 Open the Prove website with Chrome
+    # Open prove.fi with maximized chrome 
     Open Chrome Browser    ${URL}    maximized=True
 
 Accept cookies
+    # Waits until cookie prompt is visible and accepts all cookies
     Click Button When Visible    ${accept_cookies}
 
 Verify that currency is in Euros
+    # Ensures that currency and country is Euro | Finland
     Click Button    ${currency_dropdown}
     Click Element    ${currency}
 
 Get in touch
+    # Opens excel file, goes to get in touch page, reads data form excel,
+    # loop keyword five times that fills the form, close excel file  
     Open Workbook    ${excel_file}
     Click Element    ${get_in_touch}
 
@@ -71,40 +76,35 @@ Get in touch
     Close Workbook
 
 Fill the form for one person
+    # Gets parameter that includes one row from excel from the
+    # get in touch keyword and inserts the right items from the
+    # row to correct places
     [Arguments]    ${sales_rep}
-
-    # ${secret}=    Get Secret    credentials
 
     Wait Until Element Is Visible    ${frame}
     Select Frame    ${frame}
 
     Input Text When Element Is Visible    ${name}
     ...    ${sales_rep}[First Name] ${sales_rep}[Last Name]
-    
-    TRY
-        # Input Text    ${email}    ${secret}[email]
-        Input Text    ${phone}    ${sales_rep}[Sales]
-        # Input Text    ${company}    ${secret}[company]
-        # Input Text    ${message_field}    ${secret}[message]
-    EXCEPT
-        Input Text    ${email}    ${email_address}
-        Input Text    ${phone}    ${sales_rep}[Sales]
-        Input Text    ${company}    ${company_name}
-        Input Text    ${message_field}    ${message}
-    END
-    
-    Click Element    ${real_person}
 
-    Unselect Frame
+    Input Text    ${email}    ${email_address}
+    Input Text    ${phone}    ${sales_rep}[Sales]
+    Input Text    ${company}    ${company_name}
+    Input Text    ${message_field}    ${message}
+
+    Click Element    ${real_person}
     Reload Page
 
 Buy a testing guide
+    # Add Storytools of Testing to cart and remove it from the cart
     Click Element When Clickable    ${guides}
     Click Element When Clickable    ${storytools}
     Click Button When Visible    ${submit}
     Click Element When Visible    ${remove}
 
 Export pentesting description as a PDF
+    # wait until page loads and get text from pentesting description and
+    # insert into pdf with a screenshot of a pentesting image
     Click Element When Clickable    ${testing_services}
     Click Element When Clickable    ${pentesting}
 
@@ -122,13 +122,16 @@ Export pentesting description as a PDF
     Close Pdf    ${OUTPUT_DIR}${/}pentesting-info${/}pentesting-info.pdf
 
 Close Chrome browser
+    # Close chrome
     Close Browser
 
 Open the Prove website with Firefox
-    Open Browser    ${URL}    browser=headlessfirefox
-    # Open Browser    ${URL}    browser=firefox
+    # When using docker, run firefox in headlessmode
+    # Open Browser    ${URL}    browser=headlessfirefox
+    Open Browser    ${URL}    browser=firefox
 
 Create a ZIP file of pentesting files
+    # Zip image and pdf
     Archive Folder With Zip    ${OUTPUT_DIR}${/}pentesting-info${/}    pentesting-info.zip
 
 
