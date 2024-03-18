@@ -2,7 +2,7 @@
 FROM python:3.10-slim-buster
 
 # copy robot files to container
-COPY . test-prove-website
+COPY tasks test-prove-website/tasks
 
 # Update system, install wget and firefox-esr, because regular firefox cannot be installed straightforward
 RUN apt update && apt upgrade -y && apt install wget firefox-esr -y
